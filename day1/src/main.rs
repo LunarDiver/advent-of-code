@@ -7,9 +7,13 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         Ok(contents) => contents,
         Err(e) => return Err(Box::new(e)),
     };
-    let numbers = contents.lines().map(find_numbers);
+    let sum: u32 = contents
+        .lines()
+        .filter_map(find_numbers)
+        .map(|n| n as u32)
+        .sum();
 
-    println!("{:#?}", numbers.collect::<Vec<_>>());
+    println!("{}", sum);
 
     Ok(())
 }
